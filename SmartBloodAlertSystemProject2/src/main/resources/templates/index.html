@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Blood Alert System - Save Lives, Donate Blood</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Animated Background Elements -->
+    <div class="bg-animation">
+        <div class="blood-particle"></div>
+        <div class="blood-particle"></div>
+        <div class="blood-particle"></div>
+        <div class="blood-particle"></div>
+        <div class="blood-particle"></div>
+    </div>
+    <!-- Premium Navigation Bar with Glassmorphism -->
+    <nav class="navbar navbar-expand-lg navbar-dark premium-navbar">
+        <div class="container-fluid px-4">
+            <!-- Hamburger Menu for Admin -->
+            <button class="btn btn-link text-white me-3 hamburger-btn" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#adminMenu">
+                <i class="fas fa-bars fa-lg"></i>
+            </button>
+
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <div class="brand-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="brand-text ms-3">
+                    <div class="brand-title">Smart Blood Alert</div>
+                    <div class="brand-subtitle">Life-Saving Network</div>
+                </div>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link active px-3" href="#">
+                            <i class="fas fa-home me-2"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#about">
+                            <i class="fas fa-info-circle me-2"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link px-3" href="#contact">
+                            <i class="fas fa-phone me-2"></i>Contact
+                        </a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a href="tel:1-800-BLOOD-HELP" class="btn btn-emergency btn-sm">
+                            <i class="fas fa-phone-volume me-2"></i>Emergency
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Premium Admin Menu Offcanvas -->
+    <div class="offcanvas offcanvas-start premium-offcanvas" tabindex="-1" id="adminMenu">
+        <div class="offcanvas-header">
+            <div class="d-flex align-items-center">
+                <div class="admin-icon-wrapper">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h5 class="offcanvas-title ms-3 mb-0">Admin Panel</h5>
+            </div>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="admin-menu-content">
+                <div class="text-center mb-4">
+                    <div class="lock-icon-large mb-3">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h6 class="text-white mb-2">Secure Access</h6>
+                    <p class="text-muted small mb-4">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        Authorized Personnel Only
+                    </p>
+                </div>
+                <a href="/admin/login" class="btn btn-admin-login w-100">
+                    <i class="fas fa-sign-in-alt me-2"></i>
+                    Administrator Login
+                </a>
+
+                <div class="admin-stats mt-5">
+                    <div class="stat-item">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Manage System</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>View Analytics</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Configuration</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container-fluid main-container py-5">
+        <div class="row g-4">
+
+            <!-- LEFT COLUMN - Main User Actions -->
+            <div class="col-lg-7">
+                <div class="main-action-area">
+
+                    <!-- Premium Hero Section -->
+                    <div class="hero-section text-center mb-5">
+                        <div class="hero-badge mb-3">
+                            <i class="fas fa-heart"></i>
+                            <span id="heroDonorCount">Loading donors...</span>
+                        </div>
+                        <h1 class="hero-title mb-3">
+                            Save Lives Through
+                            <span class="gradient-text">Blood Donation</span>
+                        </h1>
+                        <p class="hero-subtitle mb-4">
+                            Connect with donors and patients instantly. Every donation counts, every second matters.
+                        </p>
+                        <div class="hero-stats">
+                            <div class="hero-stat-item">
+                                <i class="fas fa-clock"></i>
+                                <span>24/7 Available</span>
+                            </div>
+                            <div class="hero-stat-item">
+                                <i class="fas fa-shield-check"></i>
+                                <span>100% Secure</span>
+                            </div>
+                            <div class="hero-stat-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>Instant Match</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Premium Action Card -->
+                    <div class="premium-card welcome-card">
+                        <div class="card-glow"></div>
+                        <div class="card-body p-5">
+                            <div class="section-header text-center mb-4">
+                                <h2 class="section-title">Get Started Today</h2>
+                                <p class="section-subtitle">Choose your path to saving lives</p>
+                            </div>
+
+                            <!-- Premium Action Buttons -->
+                            <div class="row g-4 mt-4">
+                                <div class="col-md-6">
+                                    <a href="/donor/register" class="premium-action-btn donor-btn">
+                                        <div class="btn-icon">
+                                            <i class="fas fa-hand-holding-heart"></i>
+                                        </div>
+                                        <div class="btn-content">
+                                            <h5>Become a Donor</h5>
+                                            <p>Register to save lives</p>
+                                        </div>
+                                        <div class="btn-arrow">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="/blood/request" class="premium-action-btn request-btn">
+                                        <div class="btn-icon">
+                                            <i class="fas fa-hospital"></i>
+                                        </div>
+                                        <div class="btn-content">
+                                            <h5>Request Blood</h5>
+                                            <p>Find donors instantly</p>
+                                        </div>
+                                        <div class="btn-arrow">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Feature Highlights -->
+                            <div class="feature-grid mt-5">
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h6>Quick Response</h6>
+                                        <small>Average 18 min response time</small>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-shield-virus"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h6>Safe & Verified</h6>
+                                        <small>All donors are screened</small>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h6>Location Based</h6>
+                                        <small>Find nearby donors fast</small>
+                                    </div>
+                                </div>
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    <div class="feature-text">
+                                        <h6>Instant Alerts</h6>
+                                        <small>Real-time notifications</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN - Information & Control Panel -->
+            <div class="col-lg-5">
+
+                <!-- Premium Blood Availability Section -->
+                <div class="premium-card availability-card mb-4">
+                    <div class="card-header-premium">
+                        <div class="header-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="header-content">
+                            <h5 class="mb-0">Live Blood Availability</h5>
+                            <small>Real-time stock updates</small>
+                        </div>
+                        <div class="live-indicator">
+                            <span class="pulse-dot"></span>
+                            <small>Live</small>
+                        </div>
+                    </div>
+                    <div class="card-body-premium">
+                        <div class="blood-group-grid-premium" id="bloodAvailability">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Success Statistics Section -->
+                <div class="premium-card stats-card mb-4">
+                    <div class="card-header-premium">
+                        <div class="header-icon success-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="header-content">
+                            <h5 class="mb-0">Success Metrics</h5>
+                            <small>Our impact in numbers</small>
+                        </div>
+                    </div>
+                    <div class="card-body-premium">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon donor-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-number mb-0" id="totalDonorCount" data-target="0">0</h3>
+                                    <p class="stat-label mb-0">Donors Registered</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon request-icon">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-number mb-0" data-target="860">0</h3>
+                                    <p class="stat-label mb-0">Requests Served</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon hospital-icon">
+                                    <i class="fas fa-hospital-alt"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-number mb-0" data-target="45">0</h3>
+                                    <p class="stat-label mb-0">Hospitals Connected</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-icon time-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="stat-content">
+                                    <h3 class="stat-number mb-0" data-target="18">0</h3>
+                                    <p class="stat-label mb-0">Avg Response (mins)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium Motivation Quote Section -->
+                <div class="premium-card quote-card mb-4">
+                    <div class="quote-decoration">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <div class="card-body-premium text-center py-5">
+                        <p class="quote-text mb-0" id="motivationalQuote">
+                            <!-- Will be populated by JavaScript -->
+                        </p>
+                    </div>
+                    <div class="quote-decoration bottom">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Footer -->
+    <footer class="premium-footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <div class="footer-brand mb-2">
+                        <i class="fas fa-heartbeat me-2"></i>
+                        <strong>Smart Blood Alert System</strong>
+                    </div>
+                    <p class="footer-text mb-0">
+                        Connecting donors with those in need, 24/7
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <div class="footer-contact">
+                        <i class="fas fa-phone-volume me-2"></i>
+                        <strong>Emergency Hotline:</strong>
+                        <a href="tel:1-800-BLOOD-HELP" class="ms-2">1-800-BLOOD-HELP</a>
+                    </div>
+                    <div class="footer-social mt-2">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom mt-4 pt-3">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <small class="text-muted">
+                            © 2026 Smart Blood Alert System. All rights reserved. |
+                            <a href="#" class="footer-link">Privacy Policy</a> |
+                            <a href="#" class="footer-link">Terms of Service</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js?v=1.2"></script>
+</body>
+
+</html>

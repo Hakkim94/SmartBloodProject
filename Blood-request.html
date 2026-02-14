@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Request - Smart Blood Alert</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 50%, #fecaca 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(220, 38, 38, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.1);
+        }
+
+        .back-link:hover {
+            color: #b91c1c;
+            transform: translateX(-8px);
+            box-shadow: 0 6px 15px rgba(220, 38, 38, 0.2);
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 45px;
+            min-height: 850px;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5);
+            margin-bottom: 30px;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '🏥';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3em;
+            opacity: 0.2;
+        }
+
+        .header h1 {
+            color: #dc2626;
+            font-size: 2.5em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #fecaca;
+            border-radius: 14px;
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.9);
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #dc2626;
+            background: white;
+            box-shadow: 0 0 0 5px rgba(220, 38, 38, 0.1), 0 8px 20px rgba(220, 38, 38, 0.15);
+            transform: translateY(-2px);
+        }
+
+        input:hover, select:hover {
+            border-color: #f87171;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23dc2626' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            padding-right: 50px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            border: none;
+            color: white;
+            font-size: 1.25em;
+            border-radius: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(220, 38, 38, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+        }
+
+        .required {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            opacity: 1;
+            height: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 35px 25px;
+                min-height: 700px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <a href="newindex.html" class="back-link">
+        <span>←</span>
+        <span>Back to Portal</span>
+    </a>
+
+    <div class="card">
+        <div class="header">
+            <h1>BLOOD REQUEST</h1>
+            <p>Request emergency blood support</p>
+        </div>
+
+        <form id="bloodRequestForm">
+
+            <div class="form-group">
+                <label>Your Name <span class="required">*</span></label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Your Age <span class="required">*</span></label>
+                <input type="number" id="age" min="1" max="120" placeholder="Enter age" required>
+            </div>
+
+            <div class="form-group">
+                <label>Blood Group <span class="required">*</span></label>
+                <select id="bloodGroup" required>
+                    <option value="">Select Blood Group</option>
+                    <option value="A+">A+</option><option value="A-">A-</option>
+                    <option value="B+">B+</option><option value="B-">B-</option>
+                    <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                    <option value="O+">O+</option><option value="O-">O-</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Units Required <span class="required">*</span></label>
+                <input type="number" id="units" min="1" max="5" placeholder="Number of units" required>
+            </div>
+
+            <div class="form-group">
+                <label>Location (City) <span class="required">*</span></label>
+                <select id="city" required>
+                    <option value="">Select City</option>
+                    <option>Chennai</option><option>Coimbatore</option><option>Madurai</option>
+                    <option>Trichy</option><option>Thanjavur</option><option>Tirunelveli</option>
+                    <option>Salem</option><option>Erode</option><option>Vellore</option>
+                    <option>Thoothukudi</option><option>Dindigul</option><option>Karur</option>
+                    <option>Namakkal</option><option>Kanchipuram</option><option>Tiruppur</option>
+                    <option>Nagercoil</option><option>Krishnagiri</option><option>Dharmapuri</option>
+                    <option>Villupuram</option><option>Cuddalore</option><option>Pudukkottai</option>
+                    <option>Sivaganga</option><option>Nagapattinam</option><option>Kumbakonam</option>
+                    <option>Ariyalur</option><option>Perambalur</option><option>Tiruvannamalai</option>
+                    <option>Ranipet</option><option>Tenkasi</option><option>Ramanathapuram</option>
+                    <option>Virudhunagar</option><option>Theni</option><option>Nilgiris</option>
+                </select>
+            </div>
+
+            <input type="hidden" id="latitude">
+            <input type="hidden" id="longitude">
+
+            <button class="btn" type="submit">Request Blood</button>
+
+        </form>
+    </div>
+
+</div>
+<script>
+window.onload = function () {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                document.getElementById("latitude").value = pos.coords.latitude;
+                document.getElementById("longitude").value = pos.coords.longitude;
+            },
+            () => alert("Please enable GPS for accurate blood request location.")
+        );
+    }
+};
+
+document.getElementById("bloodRequestForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const lat = document.getElementById("latitude").value;
+    const lon = document.getElementById("longitude").value;
+
+    if (!lat || !lon) {
+        alert("Fetching location… please wait 3 seconds and try again.");
+        return;
+    }
+
+    const data = {
+        name: document.getElementById("name").value,
+        age: parseInt(document.getElementById("age").value),
+        bloodType: document.getElementById("bloodGroup").value,
+        latitude: parseFloat(lat),
+        longitude: parseFloat(lon),
+        location: document.getElementById("city").value
+    };
+
+    let response;
+    try {
+        response = await fetch("http://localhost:8080/api/donor/request-blood", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+    } catch (err) {
+        alert("Server offline. Please try again later.");
+        return;
+    }
+
+    let result;
+    try {
+        result = await response.json();
+    } catch {
+        alert("No donors found.");
+        result = [];
+    }
+
+    if (!Array.isArray(result)) {
+        result = [];
+    }
+
+    localStorage.setItem("knnDonors", JSON.stringify(result));
+
+    alert("Blood request sent! Showing nearest donors…");
+
+    window.location.href = "request-dashboard.html";
+});
+</script>
+
+</body>
+</html>
